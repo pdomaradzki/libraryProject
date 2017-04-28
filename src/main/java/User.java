@@ -9,6 +9,7 @@ public class User {
     private String name;
     private String lastName;
     private String number;
+    private String password;
     private int id;
 
 //    public User() {
@@ -16,7 +17,7 @@ public class User {
 
     public void addUser(Connection connection) throws SQLException {
 
-        String sql = "INSERT INTO user (name, lastName, number) VALUES(?, ?, ?)";
+        String sql = "INSERT INTO user (name, password, lastName, number) VALUES(?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
 
         Scanner scanner = new Scanner(System.in);
@@ -27,11 +28,14 @@ public class User {
         lastName = scanner.nextLine();
         System.out.print("Podaj nr telefonu: ");
         number = scanner.nextLine();
+        System.out.print("Podaj hasło: ");
+        password = scanner.nextLine();
 
 
         statement.setString(1, name);
-        statement.setString(2, lastName);
-        statement.setString(3, number);
+        statement.setString(2, password);
+        statement.setString(3, lastName);
+        statement.setString(4, number);
 
         statement.execute();
 
