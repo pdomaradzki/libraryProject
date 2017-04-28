@@ -73,7 +73,7 @@ public class User {
         id = scanner.nextInt();
 
 
-        statement.setString(1, String.valueOf(id));
+        statement.setInt(1, id);
         statement.executeUpdate();
 
         statement.close();

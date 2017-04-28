@@ -27,7 +27,7 @@ public class Book {
 
         statement.setString(1, name);
         statement.setString(2, author);
-        statement.setString(3, String.valueOf(pages));
+        statement.setInt(3, pages);
 
         statement.execute();
 

@@ -25,8 +25,8 @@ public class Rent {
         book = scanner.nextInt();
 
 
-        statement.setString(1, String.valueOf(book));
-        statement.setString(2, String.valueOf(user));
+        statement.setInt(1, book);
+        statement.setInt(2, user);
 
         statement.execute();
 
