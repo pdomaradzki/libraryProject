@@ -28,11 +28,14 @@ public class Rent {
         statement.setInt(1, book);
         statement.setInt(2, user);
 
-        statement.execute();
+        if (!(userExists(connection, user) && bookExists(connection, book))) {
+            return;
+        } else {
 
-        statement.close();
-
-        System.out.println("Dodałem wypożyczenie!");
+            statement.execute();
+            statement.close();
+            System.out.println("Dodałem wypożyczenie!");
+        }
     }
 
     public void listRents (Connection connection) throws SQLException {
@@ -51,6 +54,34 @@ public class Rent {
         }
 
         resultSet.close();
+    }
+
+    private boolean userExists(Connection connection, int ID) throws SQLException {
+        String sql = "SELECT * FROM user WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, ID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println("Użytkownik istnieje!");
+            return true;
+        } else {
+            System.out.println("Użytkownik nie istnieje!");
+            return false;
+        }
+    }
+
+    private boolean bookExists(Connection connection, int ID) throws SQLException {
+        String sql = "SELECT * FROM book WHERE id = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, ID);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            System.out.println("Książka istnieje!");
+            return true;
+        } else {
+            System.out.println("Książka nie istnieje!");
+            return false;
+        }
     }
 
 }
